@@ -79,7 +79,6 @@ interface AiPrep {
   study_plan: string[]
   requirements: string[]
 }
-interface AiAdvice { topic: string; tips: string[] }
 interface SkillGapReport {
   id: number
   assessment_id: number | null
@@ -875,7 +874,6 @@ export default function StudentDashboard() {
   // Load the AI cards one after another, so the free Gemini tier's requests-per-minute limit is not hit
   // Only fetch if previous fetch succeeded or wasn't attempted
   const prep = useFetch<AiPrep>(hasActiveLevel && !recs.loading && !recs.error ? '/ai/prep' : null)
-  const advice = useFetch<{ advice: AiAdvice[] }>(data?.skill_gap && !recs.loading && !prep.loading && !recs.error && !prep.error ? '/ai/gap-advice' : null)
   const credentials = useFetch<Credentials>(data ? '/me/credentials' : null)
   const skillGapReport: FetchState<SkillGapReport> = {
     ...skillGapState,
@@ -1218,35 +1216,6 @@ export default function StudentDashboard() {
         </div>
       )}
 
-      <Card title={data.skill_gap ? `Skill-gap analysis · ${data.skill_gap.level_name}` : 'Skill-gap analysis'} icon={ico('chart')}>
-        {data.skill_gap ? (
-          <>
-            <ul className="space-y-3">
-              {data.skill_gap.weak.map((w) => (
-                <li key={w.topic} className="text-sm">
-                  <div className="flex justify-between font-medium dark:text-slate-100"><span>{w.topic}</span><span className="text-red-600 dark:text-red-400">{w.score}%</span></div>
-                  <div className="mt-1.5 h-2 rounded-full bg-slate-100 dark:bg-slate-700"><div className="h-2 rounded-full bg-red-500" style={{ width: `${w.score}%` }} /></div>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Topics to improve before your next attempt.</p>
-            <div className="mt-4 border-t border-slate-100 pt-4 dark:border-slate-700">
-              <p className="flex items-center gap-2 text-sm font-semibold dark:text-slate-100">{ico('sparkle', 'h-4 w-4 text-indigo-500 dark:text-indigo-400')} How to improve</p>
-              <div className="mt-2"><AiStatus state={advice} /></div>
-              <ul className="mt-2 space-y-3 text-sm text-slate-600 dark:text-slate-300">
-                {advice.data?.advice.map((a) => (
-                  <li key={a.topic} className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
-                    <span className="font-semibold text-slate-800 dark:text-slate-100">{a.topic}</span>
-                    <ul className="mt-1 list-disc pl-5 marker:text-indigo-500">{a.tips.map((t) => <li key={t}>{t}</li>)}</ul>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </>
-        ) : (
-          <p className="rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-500 dark:bg-slate-800 dark:text-slate-400">Your skill-gap analysis appears after your first test.</p>
-        )}
-      </Card>
       <div className="grid gap-6 lg:grid-cols-2">
         <Card title="AI skill gap analysis" icon={ico('chart')}>
           <AiStatus state={skillGapReport} />
