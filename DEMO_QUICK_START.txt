@@ -1,0 +1,87 @@
+╔══════════════════════════════════════════════════════════╗
+║     SKILL-TRACK DEMO - QUICK START GUIDE                ║
+║     Ready for College Jury Demonstration                 ║
+╚══════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════
+START COMMANDS (Run in separate terminals)
+═══════════════════════════════════════════════════════════
+
+TERMINAL 1 - Backend:
+  cd skilltrack-api
+  ..\.venv\Scripts\uvicorn.exe app.main:app --reload
+
+TERMINAL 2 - Frontend:
+  cd skilltrack
+  npm run dev
+
+BROWSER:
+  http://localhost:5173
+
+═══════════════════════════════════════════════════════════
+DEMO LOGIN
+═══════════════════════════════════════════════════════════
+
+Email:    arun@college.edu
+Password: Password@123
+
+═══════════════════════════════════════════════════════════
+EXPECTED FLOW
+═══════════════════════════════════════════════════════════
+
+1. Login → Dashboard loads
+2. View: Points (40), Levels (2/6 cleared)
+3. Skill Gap Analysis auto-displays:
+   - Readiness: DEVELOPING
+   - Confidence: HIGH
+   - 2 Gaps identified
+   - Personalized recommendations
+
+═══════════════════════════════════════════════════════════
+KEY FEATURES TO HIGHLIGHT
+═══════════════════════════════════════════════════════════
+
+✓ Real assessment history (4 attempts)
+✓ Database-driven evidence
+✓ Deterministic + AI reasoning
+✓ Severity classification (HIGH/MEDIUM)
+✓ Trend analysis (PERSISTENT/IMPROVING)
+✓ Next-level awareness
+✓ Instant loading (cached in DB)
+
+═══════════════════════════════════════════════════════════
+BACKUP CREDENTIALS
+═══════════════════════════════════════════════════════════
+
+Student:  karthik@college.edu / Password@123
+Admin:    admin@college.edu   / Password@123
+
+═══════════════════════════════════════════════════════════
+EMERGENCY
+═══════════════════════════════════════════════════════════
+
+Backend won't start?
+  → taskkill /F /IM uvicorn.exe
+  → Restart uvicorn
+
+Dashboard blank?
+  → Check backend is running (port 8000)
+  → Check browser console
+
+Skill Gap missing?
+  → Already in database - should load instantly
+  → Try refresh page
+
+═══════════════════════════════════════════════════════════
+STATUS: ✓ READY
+═══════════════════════════════════════════════════════════
+
+Database:    ✓ Seeded (9 users, 18 attempts)
+Backend:     ✓ Working
+Frontend:    ✓ Building
+Auth:        ✓ Working
+Skill Gap:   ✓ Pre-generated report available
+
+CONFIDENCE: HIGH (8/10)
+
+See DEMO_READY.md for complete documentation.
