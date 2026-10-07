@@ -10,7 +10,7 @@ services:
     runtime: python
     rootDir: skilltrack-api
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python migrate_db.py
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
@@ -23,9 +23,13 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://skilltrack-web.onrender.com
+        value: https://skilltrack.web.onrender.com,https://skilltrack-web.onrender.com
       - key: GEMINI_API_KEY
         sync: false
+      - key: FRONTEND_URL
+        value: https://skilltrack.web.onrender.com
+      - key: PUBLIC_BASE_URL
+        value: https://skilltrack.web.onrender.com
 
   - type: web
     name: skilltrack-web
